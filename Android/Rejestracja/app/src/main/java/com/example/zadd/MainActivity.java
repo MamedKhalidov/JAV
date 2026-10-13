@@ -90,4 +90,34 @@ public class MainActivity extends AppCompatActivity {
         ).show();
         return false;
     }
-}
+
+    private void saveToFile() {
+        String imieTekst = imie.getText().toString().trim();
+        String nazwiskoTekst = nazwisko.getText().toString().trim();
+        String emailTekst = email.getText().toString().trim();
+        String hasloTekst = haslo.getText().toString();
+
+        String data = "Imię: " + imieTekst
+                + "\nNazwisko: " + nazwiskoTekst
+                + "\nEmail: " + emailTekst
+                + "\nHasło: " + hasloTekst
+
+        try (FileOutputStream fos = openFileOutput(
+                "dane.txt", MODE_APPEND
+        )) {
+            fos.write(data.getBytes(StandardCharsets.UTF_8));
+
+            Toast.makeText(
+                    this,
+                    "Dane zapisano do pliku!",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+        } catch (IOException e) {
+            Toast.makeText(
+                    this,
+                    "Błąd podczas zapisu!",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
+    }
